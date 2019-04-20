@@ -2,8 +2,11 @@ import React from 'react';
 import './App.css';
 import {Header} from "./components/Header";
 import {Player} from "./components/Player";
+import {AddFormPlayer} from "./components/AddFormPlayer";
 
 class App extends React.Component{
+  maxId = 4;
+
   state = {
     players : [
       {name : "LDK" ,score:0, id:1},
@@ -31,6 +34,12 @@ class App extends React.Component{
     })
   }
 
+  handleAddPlayer = (name) =>{
+    this.setState(prevState => ({
+      players : [...prevState.players, {id : ++this.maxId,score : 0, name}]
+    }))
+}
+
   render() {
     return(
       <div className="scoreboard">
@@ -39,8 +48,11 @@ class App extends React.Component{
           this.state.players.map(player => <Player name={player.name}
                                                    removePlayer={this.handleRemovePlayer}
                                                    id = {player.id}
-                                                   key={player.id} score = {player.score} changeScore={this.handleChangeScore} />)
+                                                   key={player.id}
+                                                   score = {player.score}
+                                                   changeScore={this.handleChangeScore} />)
         }
+        <AddFormPlayer addPlayer={this.handleAddPlayer} />
       </div>
     );
   }
