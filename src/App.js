@@ -19,16 +19,27 @@ class App extends React.Component{
     }))
   }
 
+  //스코어 증가, 감소 콜백 함수
+  handleChangeScore = (id, delta) => {
+    console.log(id, delta)
+    this.setState(prevState => {
+      const player = prevState.players.find(item => item.id === id);
+      player.score = player.score + delta;
+      return {
+        players: [...prevState.players]
+      }
+    })
+  }
+
   render() {
     return(
       <div className="scoreboard">
         <Header title="My Scoreboard" totalPllayers ={11} />
-
         {
           this.state.players.map(player => <Player name={player.name}
                                                    removePlayer={this.handleRemovePlayer}
                                                    id = {player.id}
-                                                   key={player.id} score = {Player.score}/>)
+                                                   key={player.id} score = {player.score} changeScore={this.handleChangeScore} />)
         }
       </div>
     );
