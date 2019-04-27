@@ -1,6 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from "react-redux";
+import {changeScore} from "../redux/actions"
 
-export class Counter extends React.Component {
+class Counter extends React.Component {
+   static propTypes = {
+    changeScore: PropTypes.func,
+    id: PropTypes.number,
+    score: PropTypes.number
+  }
 
   render() {
     return (
@@ -14,3 +22,5 @@ export class Counter extends React.Component {
     );
   }
 }
+
+export default connect(null, {changeScore})(Counter);
